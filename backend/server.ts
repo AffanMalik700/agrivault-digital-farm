@@ -14,7 +14,7 @@ app.use(express.json());
 
 connectDB();
 
-app.use("/api/auth", authRoutes);
+
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello from TypeScript + MongoDB backend!");
@@ -22,6 +22,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/receipts", receiptRoutes);
 
+app.use("/api/auth", authRoutes);
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {

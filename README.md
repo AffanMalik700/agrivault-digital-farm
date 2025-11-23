@@ -1,73 +1,289 @@
-# Welcome to your Lovable project
+# 📌 **README.md (complete & ready to use)**
 
-## Project info
+```md
+# 🌾 AgriVault – Digital Farm Receipts Platform  
+A full-stack web application for farmers, warehouses, banks, and traders to manage **digital warehouse receipts**, **commodity storage**, **loans**, and **marketplace trading**.
 
-**URL**: https://lovable.dev/projects/398e203a-42b8-485b-ba6f-146593b191a6
+Built using:
 
-## How can I edit this code?
+- **React + TypeScript + Vite** (frontend)
+- **Node.js + Express + TypeScript** (backend)
+- **MongoDB + Mongoose** (database)
+- **JWT Authentication**
+- **ShadCN UI + TailwindCSS**
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 🚀 Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/398e203a-42b8-485b-ba6f-146593b191a6) and start prompting.
+### 👤 Multi-role System (Authentication)
+Users can create accounts and login using:
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Farmer**
+- **Warehouse Operator**
+- **Bank**
+- **Trader**
 
-**Use your preferred IDE**
+Auth includes:
+- Register with name + mobile + password + role
+- Login using mobile + password
+- JWT-based authentication
+- Role-based redirection (dashboards)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 📄 Digital Warehouse Receipts
+Farmers can:
 
-Follow these steps:
+- Create digital receipts for stored commodities  
+- View their own receipts  
+- Track status (`stored`, `pledged`, `sold`, etc.)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Backend automatically links receipts → farmer account via `farmerId`.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 🏦 Bank Integration
+Banks can:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+- View pledged receipts  
+- Initiate loan approvals (coming next)
+
+---
+
+### 🏭 Warehouse Integration
+Warehouse operators can:
+
+- Create intake entries
+- Approve or update stored goods
+
+---
+
+### 📈 Trader Marketplace
+Traders can:
+
+- Browse receipts available for sale
+- Initiate buying/selling flows
+
+---
+
+## 🗂 Project Structure
+
+```
+
+agrivault-digital-farm/
+│
+├── backend/              # Express + MongoDB API
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   ├── config/
+│   ├── dist/             # Compiled JS
+│   ├── server.ts
+│   └── package.json
+│
+├── src/                  # React + TS frontend
+│   ├── pages/
+│   ├── components/
+│   ├── assets/
+│   └── App.tsx
+│
+├── public/               # Static files (favicon, etc.)
+├── package.json
+└── README.md
+
+````
+
+---
+
+# 🛠 Backend Setup
+
+## 1️⃣ Install dependencies
+
+```bash
+cd backend
+npm install
+````
+
+## 2️⃣ Create `.env`
+
+Inside `backend/.env`:
+
+```
+MONGO_URI=mongodb://127.0.0.1:27017/agrivault
+JWT_SECRET=supersecretdevkey123
+PORT=4000
+```
+
+## 3️⃣ Build backend
+
+```bash
+npm run build
+```
+
+## 4️⃣ Start backend
+
+```bash
+npm start
+```
+
+Backend runs on:
+
+```
+http://localhost:4000
+```
+
+---
+
+# 🖥 Frontend Setup
+
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Frontend runs on:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+http://localhost:8080
+```
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# 📡 API Endpoints
 
-## What technologies are used for this project?
+## 🔐 Authentication
 
-This project is built with:
+### Register
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```
+POST /api/auth/register
+```
 
-## How can I deploy this project?
+Body:
 
-Simply open [Lovable](https://lovable.dev/projects/398e203a-42b8-485b-ba6f-146593b191a6) and click on Share -> Publish.
+```json
+{
+  "name": "Affan",
+  "mobile": "9999999999",
+  "password": "1234",
+  "role": "farmer",
+  "village": "X",
+  "district": "Y"
+}
+```
 
-## Can I connect a custom domain to my Lovable project?
+### Login
 
-Yes, you can!
+```
+POST /api/auth/login
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Body:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```json
+{
+  "mobile": "9999999999",
+  "password": "1234"
+}
+```
+
+Returns JWT.
+
+---
+
+## 📄 Receipts
+
+### Get All Receipts (public)
+
+```
+GET /api/receipts
+```
+
+### Create Receipt (auth required)
+
+```
+POST /api/receipts
+```
+
+Headers:
+
+```
+Authorization: Bearer <token>
+```
+
+---
+
+# 📦 Database Guide (MongoDB)
+
+### Open shell:
+
+```
+mongosh
+use agrivault
+```
+
+### View users
+
+```
+db.users.find().pretty()
+```
+
+### View receipts
+
+```
+db.receipts.find().pretty()
+```
+
+### Delete a user
+
+```
+db.users.deleteOne({ mobile: "9999999999" })
+```
+
+---
+
+# 🌐 Deployment (coming soon)
+
+I'll help you deploy when you're ready:
+
+* **Render / Railway** for backend
+* **Vercel / Netlify** for frontend
+* **MongoDB Atlas** for database
+
+---
+
+# 🤝 Contributing
+
+Pull requests are welcome.
+For major changes, open an issue first.
+
+---
+
+# 📝 License
+
+MIT License © 2025 Affan Malik
+
+```
+
+---
+
+## 👍 Done!
+
+### Your README is now:
+- clean
+- professional
+- matches your exact backend + frontend
+- GitHub-friendly
+- deploy-ready
+
+If you want, I can also create:
+
+✔ `.env.example`  
+✔ full API documentation  
+✔ database schema diagrams  
+✔ postman collection  
+✔ deployment instructions  
+
+Just tell me!
+```

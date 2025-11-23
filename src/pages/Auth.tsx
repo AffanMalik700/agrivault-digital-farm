@@ -437,7 +437,7 @@
 // };
 
 // export default Auth;
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, type SetStateAction } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -621,7 +621,7 @@ const Auth = () => {
                   <Input
                     id="name"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e: { target: { value: SetStateAction<string>; }; }) => setName(e.target.value)}
                     placeholder="Enter your name"
                     required
                   />
@@ -631,7 +631,7 @@ const Auth = () => {
                   <Input
                     id="village"
                     value={village}
-                    onChange={(e) => setVillage(e.target.value)}
+                    onChange={(e: { target: { value: SetStateAction<string>; }; }) => setVillage(e.target.value)}
                     placeholder="Enter your village"
                   />
                 </div>
@@ -640,7 +640,7 @@ const Auth = () => {
                   <Input
                     id="district"
                     value={district}
-                    onChange={(e) => setDistrict(e.target.value)}
+                    onChange={(e: { target: { value: SetStateAction<string>; }; }) => setDistrict(e.target.value)}
                     placeholder="Enter your district"
                   />
                 </div>
@@ -654,7 +654,7 @@ const Auth = () => {
                 type="tel"
                 maxLength={10}
                 value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
+                onChange={(e: { target: { value: SetStateAction<string>; }; }) => setMobile(e.target.value)}
                 placeholder="Enter 10-digit mobile number"
                 required
               />
@@ -668,7 +668,7 @@ const Auth = () => {
                 id="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e: { target: { value: SetStateAction<string>; }; }) => setPassword(e.target.value)}
                 placeholder="Enter password"
                 required
               />
