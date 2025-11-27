@@ -437,6 +437,7 @@
 // };
 
 // export default Auth;
+
 import { useState, FormEvent, type SetStateAction } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -449,12 +450,14 @@ import iconFarmer from "@/assets/icon-farmer.png";
 import iconWarehouse from "@/assets/icon-warehouse.png";
 import iconBank from "@/assets/icon-bank.png";
 import iconTrader from "@/assets/icon-trader.png";
+import  { useAuth } from "@/lib/auth";
 
 const API_URL = "http://localhost:4000/api/auth";
 
 const mobileToEmail = (mobile: string) => `${mobile}@agrivault.local`;
 
 const Auth = () => {
+  const { setAuth } = useAuth();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const roleParam = searchParams.get("role");
@@ -535,9 +538,13 @@ const Auth = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
+      
+
       toast.success(
         authMode === "login" ? "Login successful!" : "Account created!"
       );
+      
+      setAuth(data.user, data.token);
 
       // Navigate based on role
       switch (data.user.role) {

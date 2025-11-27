@@ -3,6 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Sprout, FileText, IndianRupee, TrendingUp, MapPin } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
+// import { useAuth } from "@/lib/auth";
+// const { user, token } = useAuth();
+
+// console.log("AUTH:", user, token);
+
 
 const FarmerDashboard = () => {
   return (
