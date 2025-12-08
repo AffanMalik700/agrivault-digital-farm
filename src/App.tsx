@@ -12,6 +12,8 @@ import Receipts from "./pages/farmer/Receipts";
 import ReceiptDetail from "./pages/farmer/ReceiptDetail";
 import ApplyLoan from "./pages/farmer/ApplyLoan";
 import SellTransfer from "./pages/farmer/SellTransfer";
+import Loans from "./pages/farmer/Loans";
+import Profile from "./pages/farmer/Profile";
 import WarehouseDashboard from "./pages/warehouse/WarehouseDashboard";
 import NewIntake from "./pages/warehouse/NewIntake";
 import BankDashboard from "./pages/bank/BankDashboard";
@@ -42,6 +44,8 @@ const App = () => (
         <Route path="/farmer/receipts/:id" element={<ReceiptDetail />} />
         <Route path="/farmer/loan/:id" element={<ApplyLoan />} />
         <Route path="/farmer/sell/:id" element={<SellTransfer />} />
+        <Route path="/farmer/loans" element={<Loans />} />
+        <Route path="/farmer/profile" element={<Profile />} />
 
         {/* Warehouse Routes */}
         <Route

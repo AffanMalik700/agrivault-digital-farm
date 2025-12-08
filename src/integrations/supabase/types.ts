@@ -14,16 +14,311 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      loans: {
+        Row: {
+          application_date: string | null
+          approval_date: string | null
+          bank_id: string | null
+          created_at: string | null
+          disbursement_date: string | null
+          due_date: string | null
+          duration_months: number
+          farmer_id: string
+          id: string
+          interest_rate: number
+          loan_amount: number
+          notes: string | null
+          receipt_id: string | null
+          repayment_date: string | null
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          application_date?: string | null
+          approval_date?: string | null
+          bank_id?: string | null
+          created_at?: string | null
+          disbursement_date?: string | null
+          due_date?: string | null
+          duration_months: number
+          farmer_id: string
+          id?: string
+          interest_rate: number
+          loan_amount: number
+          notes?: string | null
+          receipt_id?: string | null
+          repayment_date?: string | null
+          status?: string
+          updated_at?: string | null
+        }
+        Update: {
+          application_date?: string | null
+          approval_date?: string | null
+          bank_id?: string | null
+          created_at?: string | null
+          disbursement_date?: string | null
+          due_date?: string | null
+          duration_months?: number
+          farmer_id?: string
+          id?: string
+          interest_rate?: number
+          loan_amount?: number
+          notes?: string | null
+          receipt_id?: string | null
+          repayment_date?: string | null
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loans_bank_id_fkey"
+            columns: ["bank_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "loans_farmer_id_fkey"
+            columns: ["farmer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "loans_receipt_id_fkey"
+            columns: ["receipt_id"]
+            isOneToOne: false
+            referencedRelation: "warehouse_receipts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      marketplace_listings: {
+        Row: {
+          buyer_id: string | null
+          commodity: string
+          created_at: string | null
+          description: string | null
+          id: string
+          listed_date: string | null
+          location: string | null
+          price_per_unit: number
+          quality_grade: string | null
+          quantity: number
+          receipt_id: string
+          seller_id: string
+          sold_date: string | null
+          status: string
+          total_price: number | null
+          unit: string
+          updated_at: string | null
+        }
+        Insert: {
+          buyer_id?: string | null
+          commodity: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          listed_date?: string | null
+          location?: string | null
+          price_per_unit: number
+          quality_grade?: string | null
+          quantity: number
+          receipt_id: string
+          seller_id: string
+          sold_date?: string | null
+          status?: string
+          total_price?: number | null
+          unit?: string
+          updated_at?: string | null
+        }
+        Update: {
+          buyer_id?: string | null
+          commodity?: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          listed_date?: string | null
+          location?: string | null
+          price_per_unit?: number
+          quality_grade?: string | null
+          quantity?: number
+          receipt_id?: string
+          seller_id?: string
+          sold_date?: string | null
+          status?: string
+          total_price?: number | null
+          unit?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketplace_listings_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "marketplace_listings_receipt_id_fkey"
+            columns: ["receipt_id"]
+            isOneToOne: false
+            referencedRelation: "warehouse_receipts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "marketplace_listings_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          district: string | null
+          email: string | null
+          id: string
+          name: string
+          phone: string | null
+          state: string | null
+          updated_at: string | null
+          village: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          district?: string | null
+          email?: string | null
+          id: string
+          name: string
+          phone?: string | null
+          state?: string | null
+          updated_at?: string | null
+          village?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          district?: string | null
+          email?: string | null
+          id?: string
+          name?: string
+          phone?: string | null
+          state?: string | null
+          updated_at?: string | null
+          village?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      warehouse_receipts: {
+        Row: {
+          commodity: string
+          created_at: string | null
+          estimated_value: number
+          farmer_id: string
+          id: string
+          notes: string | null
+          quality_grade: string | null
+          quantity: number
+          receipt_number: string
+          status: string
+          storage_end_date: string | null
+          storage_location: string
+          storage_start_date: string
+          unit: string
+          updated_at: string | null
+          warehouse_id: string | null
+        }
+        Insert: {
+          commodity: string
+          created_at?: string | null
+          estimated_value: number
+          farmer_id: string
+          id?: string
+          notes?: string | null
+          quality_grade?: string | null
+          quantity: number
+          receipt_number: string
+          status?: string
+          storage_end_date?: string | null
+          storage_location: string
+          storage_start_date?: string
+          unit?: string
+          updated_at?: string | null
+          warehouse_id?: string | null
+        }
+        Update: {
+          commodity?: string
+          created_at?: string | null
+          estimated_value?: number
+          farmer_id?: string
+          id?: string
+          notes?: string | null
+          quality_grade?: string | null
+          quantity?: number
+          receipt_number?: string
+          status?: string
+          storage_end_date?: string | null
+          storage_location?: string
+          storage_start_date?: string
+          unit?: string
+          updated_at?: string | null
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "warehouse_receipts_farmer_id_fkey"
+            columns: ["farmer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "warehouse_receipts_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "farmer" | "warehouse" | "bank" | "trader"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +445,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["farmer", "warehouse", "bank", "trader"],
+    },
   },
 } as const
